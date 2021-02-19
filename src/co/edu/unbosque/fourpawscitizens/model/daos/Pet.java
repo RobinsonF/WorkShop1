@@ -9,6 +9,9 @@ public class Pet {
     private boolean potentDangerous;
     private String neighborhood;
 
+    public Pet(){
+
+    }
     public Pet(String id, long microchip, String species, String sex, String size, boolean potentDangerous, String neighborhood) {
         this.id = id;
         this.microchip = microchip;
