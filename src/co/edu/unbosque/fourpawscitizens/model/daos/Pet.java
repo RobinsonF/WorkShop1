@@ -19,7 +19,6 @@ public class Pet {
         this.neighborhood = neighborhood;
     }
 
-
     public String getId() {
         return id;
     }
