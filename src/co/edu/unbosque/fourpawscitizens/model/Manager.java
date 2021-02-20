@@ -7,58 +7,70 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Manager {
-    File file = new File("C:\\Users\\Robinson\\WorkShop1\\src\\co\\edu\\unbosque\\fourpawscitizens\\pets-citizens.csv");
-    ArrayList<Pet> pet = new ArrayList<Pet>();
-    public Manager () {
-    pet = leerArchivo(file);
-    this.funcionar();
+    ArrayList<Pet> petsList = new ArrayList<Pet>();
 
-    }
-    public void funcionar(){
-
-        for (int i = 0; i < pet.size(); i++) {
-            System.out.println(pet.get(i).getSex());
+    public Manager() {
+    this.uploadData();
+        for (int i = 0; i < petsList.size(); i++) {
+         System.out.println(petsList.get(i).getMicrochip() + "    " + petsList.get(i).getId());
         }
+        System.out.println(petsList.size());
     }
 
-    public ArrayList<Pet> leerArchivo(File fArchivo) {
+
+    public void uploadData(){
+        BufferedReader bufferLectura = null;
         try {
+            bufferLectura = new BufferedReader(new FileReader("C:\\Users\\Robinson\\WorkShop1\\src\\co\\edu\\unbosque\\fourpawscitizens\\pets-citizens.csv"));
 
-            if (fArchivo.exists()) {
-                BufferedReader fLectura = new BufferedReader(new FileReader(fArchivo));
-                ArrayList<Pet> petsList = new ArrayList<Pet>();
-                Scanner scanner = new Scanner(fArchivo);
+            String linea = bufferLectura.readLine();
 
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    Scanner delimitar = new Scanner(line);
-                    delimitar.useDelimiter("\s;\s");
+            while (linea != null) {
+                Pet pet = new Pet();
+                String[] campos = linea.split(";");
+                if(campos.length == 6 ){
+                    try {
+                        pet.setMicrochip(Long.parseLong(campos[0]));
+                    }catch (NumberFormatException e){
 
-                    Pet e = new Pet();
-
-                    e.setId(delimitar.next());
-                    e.setMicrochip(delimitar.nextLong());
-                    e.setSpecies(delimitar.next());
-                    e.setSex(delimitar.next());
-                    e.setSize(delimitar.next());
-                    e.setPotentDangerous(delimitar.nextBoolean());
-                    e.setNeighborhood(delimitar.next());
-
-                    petsList.add(e);
+                    }
+                    
+                pet.setSpecies(campos[1]);
+                pet.setSex(campos[2]);
+                pet.setSize(campos[3]);
+                pet.setPotentDangerous(Boolean.parseBoolean(campos[4]));
+                pet.setNeighborhood(campos[5]);
+                    petsList.add(pet);
                 }
-                fLectura.close();
 
-                return petsList;
-
-            } else {
-                return null;
+                linea = bufferLectura.readLine();
             }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            return null;
         }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            // Cierro el buffer de lectura
+            if (bufferLectura != null) {
+                try {
+                    bufferLectura.close();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void assignID(){
+        for (int i = 0; i < this.petsList.size(); i++) {
+            System.out.println(this.petsList.get(i).getSex() + "Hola");
+        }
+        System.out.println("Hola");
+
     }
 }

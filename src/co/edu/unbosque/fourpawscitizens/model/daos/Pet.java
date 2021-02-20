@@ -12,6 +12,7 @@ public class Pet {
     public Pet(){
 
     }
+
     public Pet(String id, long microchip, String species, String sex, String size, boolean potentDangerous, String neighborhood) {
         this.id = id;
         this.microchip = microchip;
