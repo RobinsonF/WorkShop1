@@ -1,4 +1,4 @@
-package co.edu.unbosque.fourpawscitizens.model.daos;
+package co.edu.unbosque.fourpawscitizens.model.dtos;
 
 public class Pet {
     private String id;
