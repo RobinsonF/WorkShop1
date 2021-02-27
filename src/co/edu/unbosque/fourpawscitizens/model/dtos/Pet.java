@@ -1,4 +1,4 @@
-package co.edu.unbosque.fourpawscitizens.model.daos;
+package co.edu.unbosque.fourpawscitizens.model.dtos;
 
 public class Pet {
     private String id;
@@ -9,6 +9,10 @@ public class Pet {
     private boolean potentDangerous;
     private String neighborhood;
 
+    public Pet(){
+
+    }
+
     public Pet(String id, long microchip, String species, String sex, String size, boolean potentDangerous, String neighborhood) {
         this.id = id;
         this.microchip = microchip;
@@ -18,7 +22,6 @@ public class Pet {
         this.potentDangerous = potentDangerous;
         this.neighborhood = neighborhood;
     }
-
 
     public String getId() {
         return id;
