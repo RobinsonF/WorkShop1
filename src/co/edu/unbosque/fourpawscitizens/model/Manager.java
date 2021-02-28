@@ -1,5 +1,5 @@
 /**
- * Package model
+ * model Package
  */
 package co.edu.unbosque.fourpawscitizens.model;
 
@@ -75,17 +75,18 @@ public class Manager {
     }
 
     /**
-     *This method is responsible for assigning the id to each pet in the list, taking into account
-     *all the parameters of their respective data
+     * This method is responsible for assigning the id to each pet in the list, taking into account
+     * all the parameters of their respective data
      */
     public void assignID() {
         int q = 0;
         int s = 0;
         String subCadenaSize = "";
         String subCadenapotentDangerous = "";
+        String subCadenaMicroChip = "";
         for (int i = 0; i < this.petsList.size(); i++) {
             String microChip = String.valueOf(this.petsList.get(i).getMicrochip());
-            String subCadenaMicroChip = microChip.substring(microChip.length() - 3, microChip.length());
+            subCadenaMicroChip = microChip.substring(microChip.length() - 3, microChip.length());
             String species = this.petsList.get(i).getSpecies();
             String subCadenaSpecies = species.substring(0, 1);
             String sex = this.petsList.get(i).getSex();
@@ -103,45 +104,22 @@ public class Manager {
                 subCadenapotentDangerous = "F";
             }
             String id = subCadenaMicroChip + "-" + subCadenaSpecies + subCadenaSex + subCadenaSize + subCadenapotentDangerous + "-" + this.petsList.get(i).getNeighborhood();
+            for (int j = 0; j < this.petsList.size(); j++) {
+                String microChip3 = String.valueOf(this.petsList.get(j).getMicrochip());
+                if (this.petsList.get(j).getId().equals(id)) {
+                    subCadenaMicroChip = microChip.substring(microChip3.length() - (subCadenaMicroChip.length() + 1), microChip3.length());
+                    id = subCadenaMicroChip + "-" + subCadenaSpecies + subCadenaSex + subCadenaSize + subCadenapotentDangerous + "-" + this.petsList.get(i).getNeighborhood();
+                    ;
+                }
+            }
             this.petsList.get(i).setId(id);
-        }
-        for (int i = 0; i < this.petsList.size(); i++) {
-            for (int j = 0; j < this.petsList.size(); j++) {
-                if (i != j && this.petsList.get(i).getId().equals(this.petsList.get(j).getId())) {
-                    String microChip = String.valueOf(this.petsList.get(j).getMicrochip());
-                    String subCadenaMicroChip = microChip.substring(microChip.length() - 4, microChip.length() - 3);
-                    String id = subCadenaMicroChip + this.petsList.get(j).getId();
-                    this.petsList.get(i).setId(id);
-                }
-            }
-        }
-
-        for (int i = 0; i < this.petsList.size(); i++) {
-            for (int j = 0; j < this.petsList.size(); j++) {
-                if (i != j && this.petsList.get(i).getId().equals(this.petsList.get(j).getId())) {
-                    String microChip = String.valueOf(this.petsList.get(j).getMicrochip());
-                    String subCadenaMicroChip = microChip.substring(microChip.length() - 5, microChip.length() - 4);
-                    String id = subCadenaMicroChip + this.petsList.get(j).getId();
-                    this.petsList.get(i).setId(id);
-                }
-            }
-        }
-
-        for (int i = 0; i < this.petsList.size(); i++) {
-            for (int j = 0; j < this.petsList.size(); j++) {
-                if (i != j && this.petsList.get(i).getId().equals(this.petsList.get(j).getId())) {
-                    String microChip = String.valueOf(this.petsList.get(j).getMicrochip());
-                    String subCadenaMicroChip = microChip.substring(microChip.length() - 6, microChip.length() - 5);
-                    String id = subCadenaMicroChip + this.petsList.get(j).getId();
-                    this.petsList.get(i).setId(id);
-                }
-            }
         }
     }
 
     /**
-     *This method is responsible for searching for a pet within the entire
+     * This method is responsible for searching for a pet within the entire
      * list of pets, depending on the microchip parameter
+     *
      * @param microChip, it's the pet's microchip
      * @return, returns the pet with all its attributes
      */
@@ -160,6 +138,7 @@ public class Manager {
 
     /**
      * This method is responsible for counting the number of pets per species
+     *
      * @param species, It is the type of species of the pet
      * @return, returns the number of pets of the species that the user has entered
      */
@@ -168,7 +147,7 @@ public class Manager {
         for (int i = 0; i < this.petsList.size(); i++) {
             if (this.petsList.get(i).getSpecies().equals(species)) {
                 j++;
-            }else{
+            } else {
 
             }
         }
@@ -177,8 +156,9 @@ public class Manager {
 
     /**
      * This method is responsible for displaying a number of pets, potentially dangerous from a neighborhood
-     * @param n,number of pets to display
-     * @param position, It is in charge of renococer if the search goes from top to last or last to top
+     *
+     * @param n,number      of pets to display
+     * @param position,     It is in charge of renococer if the search goes from top to last or last to top
      * @param neighborhood, the pet's neighborhood
      * @return, returns all pets that have met the given characteristics
      */
@@ -186,33 +166,59 @@ public class Manager {
         String mensaje = "";
         int k = 0;
         int l = 0;
-        if (position.equals("TOP")) {
-            for (int i = 0; i < this.petsList.size(); i++) {
-                if (this.petsList.get(i).isPotentDangerous() == true && this.petsList.get(i).getNeighborhood().equals(neighborhood)) {
-                    k++;
-                    if (k <= n) {
-                        mensaje += "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + "\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + "\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + this.petsList.get(i).getNeighborhood() + "\n\n";
+        for (int j = 0; j < this.petsList.size(); j++) {
+            if (!this.petsList.get(j).getNeighborhood().equals(neighborhood)) {
+                System.out.println("No hay mascotas que se encuentren en esa localidad");
+                break;
+            } else {
+                if (position.equals("TOP")) {
+                    for (int i = 0; i < this.petsList.size(); i++) {
+                        if (this.petsList.get(i).isPotentDangerous() && this.petsList.get(i).getNeighborhood().equals(neighborhood)) {
+                            k++;
+                            if (k <= n) {
+                                mensaje += "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + "\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + "\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + this.petsList.get(i).getNeighborhood() + "\n\n";
+                            }
+                        }
+                    }
+                    if (n > k) {
+                        mensaje = "No hay tal cantidad de mascotas con esas caracteristicas, le mostramos las disponibles\n";
+                        for (int i = 0; i < this.petsList.size(); i++) {
+                            if (this.petsList.get(i).isPotentDangerous() && this.petsList.get(i).getNeighborhood().equals(neighborhood)) {
+                                mensaje += "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + "\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + "\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + this.petsList.get(i).getNeighborhood() + "\n\n";
+                            }
+                        }
+                    }
+                } else if (position.equals("LAST")) {
+                    for (int i = this.petsList.size() - 1; i >= 0; i--) {
+                        if (this.petsList.get(i).isPotentDangerous() && this.petsList.get(i).getNeighborhood().equals(neighborhood)) {
+                            l++;
+                            if (l <= n) {
+                                mensaje += "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + "\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + "\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + this.petsList.get(i).getNeighborhood() + "\n\n";
+                            }
+                        }
+                    }
+                    if (n > l) {
+                        mensaje = "No hay tal cantidad de mascotas con esas caracteristicas, le mostramos las disponibles\n";
+                        for (int i = 0; i < this.petsList.size(); i++) {
+                            if (this.petsList.get(i).isPotentDangerous() && this.petsList.get(i).getNeighborhood().equals(neighborhood)) {
+                                mensaje += "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + "\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + "\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + this.petsList.get(i).getNeighborhood() + "\n\n";
+                            }
+                        }
                     }
                 }
-            }
-        } else if (position.equals("LAST")) {
-            for (int i = this.petsList.size() - 1; i >= 0; i--) {
-                if (this.petsList.get(i).isPotentDangerous() == true && this.petsList.get(i).getNeighborhood().equals(neighborhood)) {
-                    l++;
-                    if (l <= n) {
-                        mensaje += "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + "\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + "\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + this.petsList.get(i).getNeighborhood() + "\n\n";
-                    }
-                }
+                break;
             }
         }
+
         return mensaje;
     }
 
     /**
      * This method is in charge of displaying the pet ids depending on the given parameters
-     * @param species, It is the species of the pet
-     * @param sex, It is the sex of the pet
-     * @param size, It is the size of the pet
+     *
+     * @param species,         It is the species of the pet
+     * @param sex,             It is the sex of the pet
+     * @param size,            It is the size of the pet
      * @param potentDangerous, It is the status of the pet, if it is potentially dangerous or not
      * @return, returns all pets that meet the given parameters
      */
@@ -246,12 +252,12 @@ public class Manager {
     }
 
     /**
-     *This method is in charge of asking the user for all the necessary data in order to make the program work
+     * This method is in charge of asking the user for all the necessary data in order to make the program work
      */
     public void function() {
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
-        int option;
+        String option = "";
         String option2 = "";
         String microChip = "";
         String species = "";
@@ -268,124 +274,202 @@ public class Manager {
         int species2;
         String species3 = "";
         do {
-            System.out.println("What would you like to do?");
-            System.out.println("1.Upload Data");
-            System.out.println("2.Assign ID");
-            System.out.println("3.Find by microchip");
-            System.out.println("4.The number of animals per species");
-            System.out.println("5.Search for potentially dangerous animals by neighborhood");
-            System.out.println("6.Search by species, sex, size, and potentially dangerous");
-            option = sc.nextInt();
+            System.out.println("¿Qué desea hacer?");
+            System.out.println("1.Cargar el archivo");
+            System.out.println("2.Adignar el id a las mascotas");
+            System.out.println("3.Buscar mascotas por el parametro de microchip");
+            System.out.println("4.El número de mascotas por especie");
+            System.out.println("5.Buscar mascotas dependiendo si es potencialmente peligroso o no");
+            System.out.println("6.Buscar mascotas por especie, sexo, tamaño, y potencialmente peligroso");
+            option = sc2.nextLine();
+            int h = 0;
+            do {
+                if (option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4") || option.equals("5") || option.equals("6")) {
+                    h = 1;
+                } else {
+                    System.out.println("Ingrese un dato valido");
+                    option = sc2.nextLine();
+                    h = 0;
+                }
+            } while (h == 0);
             switch (option) {
-                case 1:
+                case "1":
                     this.uploadData();
-                    System.out.println("Ended process");
+                    System.out.println("Proceso finalizado");
                     break;
-                case 2:
+                case "2":
                     this.assignID();
-                    System.out.println("Ended process");
+                    System.out.println("Proceso finalizado");
                     break;
-                case 3:
-                    System.out.println("Enter the microchip");
-                    microChip = sc2.nextLine();
+                case "3":
                     if (this.petsList.size() == 0) {
-                        System.out.println("You have not uploaded the file, there is no information about the pets");
+                        System.out.println("No ha cargado la información de las mascotas");
                     } else {
-                        System.out.println(this.findByMicrochip(Long.parseLong(microChip)));
+                        System.out.println("Ingrese el microchip de la mascota que desea buscar");
+                        try {
+                            microChip = sc2.nextLine();
+                            System.out.println(this.findByMicrochip(Long.parseLong(microChip)));
+                        } catch (Exception e) {
+                            System.out.println("Error");
+                        }
                     }
                     break;
-                case 4:
-                    System.out.println("Enter the species");
-                    species = sc2.nextLine();
+                case "4":
                     if (this.petsList.size() == 0) {
-                        System.out.println("You have not uploaded the file, there is no information about the pets");
+                        System.out.println("No ha cargado la información de las mascotas");
                     } else {
+                        System.out.println("Ingrese el número correspondiente a la especie\n1.CANINO\2.FELINO");
+                        species = sc2.nextLine();
+                        int j = 0;
+                        do {
+                            if (species.equals("1") || species.equals("2")) {
+                                j = 1;
+                            } else {
+                                System.out.println("Ingrese un dato valido\n1.CANINO\2.FELINO");
+                                species = sc2.nextLine();
+                                j = 0;
+                            }
+                        } while (j == 0);
                         System.out.println(this.countBySpecies(species.toUpperCase()));
                     }
                     break;
-                case 5:
-                    try {
-                        System.out.println("Enter the number of pets you want to see");
-                        numberPets = sc.nextInt();
-                        System.out.println("Enter the position (TOP / LAST) according to the corresponding number\n1.TOP\n2.LAST");
-                        position = sc.nextInt();
-                        int j = 0;
-                        do {
-                            if (position == 1) {
-                                j = 0;
-                            } else if (position == 2) {
-                                j = 0;
-                            } else {
-                                System.out.println("Enter a valid data<1/2>");
-                                position = sc.nextInt();
-                                j = 1;
-                            }
-                        } while (j == 1);
+                case "5":
+                    if (this.petsList.size() == 0) {
+                        System.out.println("No ha cargado la información de las mascotas");
+                    } else {
+                        try {
+                            System.out.println("Ingrese la cantidad de mascotas que desea ver");
+                            numberPets = sc.nextInt();
+                            System.out.println("Ingrese la posición (TOP / LAST) de acuerdo al número\n1.TOP\n2.LAST");
+                            position = sc.nextInt();
+                            int j = 0;
+                            do {
+                                if (position == 1) {
+                                    j = 0;
+                                } else if (position == 2) {
+                                    j = 0;
+                                } else {
+                                    System.out.println("Ingrese un dato valido<1/2>");
+                                    position = sc.nextInt();
+                                    j = 1;
+                                }
+                            } while (j == 1);
 
-                        if (position == 1) {
-                            position2 = "TOP";
-                        } else if (position == 2) {
-                            position2 = "LAST";
+                            if (position == 1) {
+                                position2 = "TOP";
+                            } else if (position == 2) {
+                                position2 = "LAST";
+                            }
+                            System.out.println("Ingrese la localidad");
+                            neighborhood = sc2.nextLine().toUpperCase();
+                            System.out.println(this.findBypotentDangerousInNeighborhood(numberPets, position2, neighborhood));
+                        } catch (Exception e) {
+                            System.out.println("Error");
                         }
-                        System.out.println("Enter the neighborhood");
-                        neighborhood = sc2.nextLine();
-                        System.out.println(this.findBypotentDangerousInNeighborhood(numberPets, position2, neighborhood));
-                    } catch (Exception e) {
-                        System.out.println("Error");
                     }
                     break;
-                case 6:
-                    System.out.println("Enter the species\n1.CANINO\n2.FELINO");
-                    species2 = sc.nextInt();
-                    if (species2 == 1) {
-                        species3 = "CANINO";
-                    } else if (species2 == 2) {
-                        species3 = "FELINO";
+                case "6":
+                    if (this.petsList.size() == 0) {
+                        System.out.println("No ha cargado la información de las mascotas");
+                    } else if (this.petsList.get(0).getId().equals("NO-ID")) {
+                        System.out.println("No ha asignado los ids a las mascotas");
+                    } else {
+                        try {
+                            System.out.println("Ingrese el número correspondiente a la especie\n1.CANINO\n2.FELINO");
+                            species2 = sc.nextInt();
+                            int j = 0;
+                            do {
+                                if (species2 == 1 || species2 == 2) {
+                                    j = 0;
+                                } else {
+                                    System.out.println("Ingrese un dato valido<1/2>");
+                                    species2 = sc.nextInt();
+                                    j = 1;
+                                }
+                            } while (j == 1);
+
+                            if (species2 == 1) {
+                                species3 = "CANINO";
+                            } else if (species2 == 2) {
+                                species3 = "FELINO";
+                            }
+                            j = 0;
+                            System.out.println("Ingrese el número correspondiente al sexo\n1.MACHO\n2.HEMBRA");
+                            sex = sc.nextInt();
+                            do {
+                                if (sex == 1 || sex == 2) {
+                                    j = 0;
+                                } else {
+                                    System.out.println("Ingrese un dato valido<1/2>");
+                                    sex = sc.nextInt();
+                                    j = 1;
+                                }
+                            } while (j == 1);
+                            if (sex == 1) {
+                                sex2 = "MACHO";
+                            } else if (sex == 2) {
+                                sex2 = "HEMBRA";
+                            }
+                            System.out.println("Ingrese el número correspondiente al tamaño de la mascota\n1.GRANDE\n2.MEDIANO\n3.PEQUEÑO\n4.MINIATURA");
+                            size = sc.nextInt();
+                            do {
+                                if (size == 1 || size == 2 || size == 3 || size == 4) {
+                                    j = 0;
+                                } else {
+                                    System.out.println("Ingrese un dato valido<1/2/3/4>");
+                                    size = sc.nextInt();
+                                    j = 1;
+                                }
+                            } while (j == 1);
+                            if (size == 1) {
+                                size2 = "GRANDE";
+                            } else if (size == 2) {
+                                size2 = "MEDIANO";
+                            } else if (size == 3) {
+                                size2 = "PEQUEÑO";
+                            } else if (size == 4) {
+                                size2 = "MINIATURA";
+                            }
+                            System.out.println("Ingrese el número correspondiente, si la mascota es potencialmente peligrosa\n1.SI\n2.NO");
+                            potentDangerous = sc.nextInt();
+                            do {
+                                if (potentDangerous == 1 || potentDangerous == 2) {
+                                    j = 0;
+                                } else {
+                                    System.out.println("Ingrese un dato valido<1/2>");
+                                    potentDangerous = sc.nextInt();
+                                    j = 1;
+                                }
+                            } while (j == 1);
+                            if (potentDangerous == 1) {
+                                potentDangerous2 = "SI";
+                            } else if (potentDangerous == 2) {
+                                potentDangerous2 = "NO";
+                            }
+                            System.out.println(this.findByMultipleFields(species3, sex2, size2, potentDangerous2));
+                        } catch (Exception e) {
+                            System.out.println("Error");
+                        }
                     }
-                    System.out.println("Enter the sex\n1.MACHO\n2.HEMBRA");
-                    sex = sc.nextInt();
-                    if (sex == 1) {
-                        sex2 = "MACHO";
-                    } else if (sex == 2) {
-                        sex2 = "HEMBRA";
-                    }
-                    System.out.println("Enter the size\n1.GRANDE\n2.MEDIANO\n3.PEQUEÑO\n4.MINIATURA");
-                    size = sc.nextInt();
-                    if (size == 1) {
-                        size2 = "GRANDE";
-                    } else if (size == 2) {
-                        size2 = "MEDIANO";
-                    } else if (size == 3) {
-                        size2 = "PEQUEÑO";
-                    } else if (size == 4) {
-                        size2 = "MINIATURA";
-                    }
-                    System.out.println("Enter if it is potentially dangerous\n1.SI\n2.NO");
-                    potentDangerous = sc.nextInt();
-                    if (potentDangerous == 1) {
-                        potentDangerous2 = "SI";
-                    } else if (potentDangerous == 2) {
-                        potentDangerous2 = "NO";
-                    }
-                    System.out.println(this.findByMultipleFields(species3, sex2, size2, potentDangerous2));
                     break;
                 default:
-                    System.out.println("Option not valid");
+                    System.out.println("Opción invalida");
             }
-            System.out.println("Do you wish to continue? <y/n>");
+            System.out.println("¿Desea continuar? <S/N>");
             option2 = sc2.nextLine().toUpperCase();
             int j = 0;
             do {
                 if (option2.equals("N")) {
                     j = 0;
-                } else if (option2.equals("Y")) {
+                } else if (option2.equals("S")) {
                     j = 0;
                 } else {
-                    System.out.println("Enter a valid data<y/n>");
+                    System.out.println("Ingrese un dato valido <S/N>");
                     option2 = sc2.nextLine().toUpperCase();
                     j = 1;
                 }
             } while (j == 1);
-        } while (option2.equals("Y"));
+
+        } while (option2.equals("S"));
     }
 }

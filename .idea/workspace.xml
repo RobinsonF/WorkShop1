@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bfe0caad-257b-4cd6-bfe3-7f0555264f3f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/edu/unbosque/fourpawscitizens/AplMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/edu/unbosque/fourpawscitizens/AplMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/co/edu/unbosque/fourpawscitizens/model/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/edu/unbosque/fourpawscitizens/model/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/edu/unbosque/fourpawscitizens/model/dtos/Pet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/edu/unbosque/fourpawscitizens/model/dtos/Pet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1614489183945</updated>
       <workItem from="1614489194541" duration="1571000" />
-      <workItem from="1614529588907" duration="5530000" />
+      <workItem from="1614529588907" duration="19669000" />
     </task>
     <servers />
   </component>
