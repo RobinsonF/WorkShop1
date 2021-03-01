@@ -294,12 +294,20 @@ public class Manager {
             } while (h == 0);
             switch (option) {
                 case "1":
-                    this.uploadData();
-                    System.out.println("Proceso finalizado");
+                    if(this.petsList.size() == 0){
+                        this.uploadData();
+                        System.out.println("Proceso finalizado");
+                    }else{
+                        System.out.println("El archivo ya se ha cargado");
+                    }
                     break;
                 case "2":
-                    this.assignID();
-                    System.out.println("Proceso finalizado");
+                    if(this.petsList.get(0).getId().equals("NO-ID")){
+                        this.assignID();
+                        System.out.println("Proceso finalizado");
+                    }else{
+                     System.out.println("Ya se han asignado los ids");
+                    }
                     break;
                 case "3":
                     if (this.petsList.size() == 0) {
@@ -340,9 +348,19 @@ public class Manager {
                         try {
                             System.out.println("Ingrese la cantidad de mascotas que desea ver");
                             numberPets = sc.nextInt();
+                            int j = 0;
+                            do{
+                                if(numberPets <= 0){
+                                    System.out.println("Ingrese un dato valido");
+                                    numberPets = sc.nextInt();
+                                    j = 1;
+                                }else{
+                                    j = 0;
+                                }
+                            }while(j==1);
                             System.out.println("Ingrese la posición (TOP / LAST) de acuerdo al número\n1.TOP\n2.LAST");
                             position = sc.nextInt();
-                            int j = 0;
+                            j = 0;
                             do {
                                 if (position == 1) {
                                     j = 0;
