@@ -342,7 +342,13 @@ public class Manager {
                                 j = 0;
                             }
                         } while (j == 0);
-                        System.out.println(this.countBySpecies(species.toUpperCase()));
+                        String species4 = "";
+                        if(species.equals("1")){
+                            species4 = "CANINO";
+                        }else if(species.equals("2")){
+                            species4 = "FELINO";
+                        }
+                        System.out.println(this.countBySpecies(species4.toUpperCase()));
                     }
                     break;
                 case "5":
@@ -416,7 +422,7 @@ public class Manager {
                                 species3 = "FELINO";
                             }
                             j = 0;
-                            System.out.println("Ingrese el número correspondiente al sexo\n1.MACHO\n2.HEMBRA");
+                            System.out.println("Ingrese el número correspondiente al sexo\n1.MACHO\n 2.HEMBRA");
                             sex = sc.nextInt();
                             do {
                                 if (sex == 1 || sex == 2) {
