@@ -302,11 +302,15 @@ public class Manager {
                     }
                     break;
                 case "2":
-                    if(this.petsList.get(0).getId().equals("NO-ID")){
-                        this.assignID();
-                        System.out.println("Proceso finalizado");
-                    }else{
-                     System.out.println("Ya se han asignado los ids");
+                    if(this.petsList.size() == 0){
+                        System.out.println("No ha cargado la información de las mascotas");
+                    }else {
+                        if (this.petsList.get(0).getId().equals("NO-ID")) {
+                            this.assignID();
+                            System.out.println("Proceso finalizado");
+                        } else {
+                            System.out.println("Ya se han asignado los ids");
+                        }
                     }
                     break;
                 case "3":
